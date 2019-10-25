@@ -1,14 +1,25 @@
 package com.ts.internal.dto;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class Node {
 
 	private int id;
 	private Node parent;
 	private Node root;
-	private Node left, right;
-
-	// private List<Node> children;
 	private int height;
+
+	@Autowired
+	public Node(int id, Node root, Node parent, int height) {
+		this.id=id;
+		this.root=root;
+		this.parent=parent;
+		this.height=height;
+	}
+	
+	public Node() {
+		
+	}
 
 	public int getId() {
 		return id;
@@ -42,21 +53,21 @@ public class Node {
 //		this.children = children;
 //	}
 
-	public Node getLeft() {
-		return left;
-	}
-
-	public void setLeft(Node left) {
-		this.left = left;
-	}
-
-	public Node getRight() {
-		return right;
-	}
-
-	public void setRight(Node right) {
-		this.right = right;
-	}
+//	public Node getLeft() {
+//		return left;
+//	}
+//
+//	public void setLeft(Node left) {
+//		this.left = left;
+//	}
+//
+//	public Node getRight() {
+//		return right;
+//	}
+//
+//	public void setRight(Node right) {
+//		this.right = right;
+//	}
 
 	public int getHeight() {
 		return height;

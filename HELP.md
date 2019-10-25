@@ -10,4 +10,4 @@ This is the below sample tree this code is written for
 				    / \
 				   8   9
 				  
-The root is 1 in my case. You can change the root in the application properties
+The root is 1 in this case. You can change the root in the application properties

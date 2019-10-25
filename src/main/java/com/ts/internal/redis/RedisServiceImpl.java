@@ -30,7 +30,15 @@ public class RedisServiceImpl {
     }
 
     public Node getNodebyID(String id) {
-    	return redisManager.getNodeByID(id);
+    	return redisManager.getNodeByID("node_"+id);
+    }
+    
+    public List<String> getDescendants(String id) {
+    	return redisManager.getDescendants(id+"_descendants");
+    }
+    
+    public void putNode(Node node) {
+    	redisManager.putNode(node);
     }
 
 }
