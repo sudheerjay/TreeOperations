@@ -45,7 +45,7 @@ public class TreeOperationsService {
 
 	//change the parent to newlyUpdated node and change it's height
 	void handleChildrenNodes(Node node) {
-		List<String> descendants = redisService.getDescendants(node.getId() + "_descendants");
+		List<String> descendants = redisService.getDescendants("node_"+node.getId() + "_descendants");
 		for (String id : descendants) {
 			Node node1 = redisService.getNodebyID(id);
 			node1.setParent(node);

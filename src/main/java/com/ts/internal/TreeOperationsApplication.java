@@ -21,7 +21,6 @@ public class TreeOperationsApplication {
 	
 	@EventListener(ApplicationReadyEvent.class)
 	public void prepareTreeTestData() {
-	    System.out.println("hello world, I have just started up");
         nodeOperations.writeTree();    
 	}
 

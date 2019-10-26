@@ -48,8 +48,5 @@ public class RedisUtil<T> {
     public void popValue(String key, String value) {
         listOperations.remove(key, 1, (T) value);
     }
-    
-    public void setExpire(String key){
-        redisTemplate.expire(key, RedisConstants.TIME_TO_EXPIRE, TimeUnit.DAYS);
-    }
+  
 }

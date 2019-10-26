@@ -23,9 +23,9 @@ public class RedisServiceImpl {
     public RedisServiceImpl() {
     }
 
-    public void cacheDescendentNodes(String node, List<String> descendants) {
+    public void cacheDescendentNodes(String id, List<String> descendants) {
     	for(String descendantID: descendants) {
-    		redisManager.pushDescendent(node+"_descendants", descendantID);
+    		redisManager.pushDescendent("node_"+id+"_descendants", descendantID);
     	}
     }
 

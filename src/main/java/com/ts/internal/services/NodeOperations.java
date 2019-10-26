@@ -17,6 +17,7 @@ public class NodeOperations {
 
 	static final int N = 1000001;
 
+	static int nodesVisited = 0;
 	static int[] start = new int[100001];
 	static int[] end = new int[100001];
 	static int[] visited = new int[100001];
@@ -27,15 +28,16 @@ public class NodeOperations {
 		// keep track of node visited
 		visited[node1] = 1;
 		node2++;
-		start[node1] = node2;
+		nodesVisited = node2;
+		start[node1] = nodesVisited;
 		dfsOrder.add(node1);
 
 		for (Integer i : adj[node1]) {
 			if (visited[i] != 1) {
-				prepareRequiredTreeStructure(i, node2);
+				prepareRequiredTreeStructure(i, nodesVisited);
 			}
 		}
-		end[node1] = node2;
+		end[node1] = nodesVisited;
 	}
 
 	List<String> getAllDescendantsAndPersist(int nodeId) {
@@ -45,7 +47,7 @@ public class NodeOperations {
         { 
             for(int j=start[nodeId]+1;j<=end[nodeId];j++) 
             { 
-            	descendants.add("node"+dfsOrder.get(j-1).toString());
+            	descendants.add("node_"+dfsOrder.get(j-1).toString());
             }  
         }
         
@@ -54,10 +56,15 @@ public class NodeOperations {
 
 	public void writeTree() {
 
-		/*
-		 * the below prepared tree will have all the data we need to test our APIs. 1 /
-		 * | \ / | \ 2 10 5 / \ / \ 3 4 6 7 / \ 8 9
-		 */
+		/* the below prepared tree will have all the data we need to test our APIs.
+		 *  	  1
+				/ |  \
+			   /  |   \
+			  2   10   5
+			 /  \     / \
+			3	4    6   7
+				    / \
+				   8   9  */
 
 		for (int i = 0; i < N; i++)
 			adj[i] = new ArrayList<>();
@@ -84,7 +91,7 @@ public class NodeOperations {
 		addEdgeNode(node6, node8);
 		addEdgeNode(node6, node9);
 
-		prepareRequiredTreeStructure(1,0);
+		prepareRequiredTreeStructure(root.getId(),0);
 
 	}
 
