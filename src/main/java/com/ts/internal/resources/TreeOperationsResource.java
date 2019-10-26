@@ -19,9 +19,8 @@ public class TreeOperationsResource {
 	TreeOperationsService service;
 
 	@GetMapping("/node/getDescendants")
-	public void getDescendants(@RequestParam("nodeId") String id) {
-		List<String> descendents = service.getDescendantNodes(id);
-		System.out.println(descendents);
+	public List<String> getDescendants(@RequestParam("nodeId") String id) {
+		return service.getDescendantNodes(id);
 	}
 
 	@PutMapping("/node/changeParent")

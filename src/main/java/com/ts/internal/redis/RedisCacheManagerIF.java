@@ -13,5 +13,7 @@ public interface RedisCacheManagerIF {
 	void putNode(Node node);
 
 	List<String> getDescendants(String id);
+	
+	void popDescendant(String key, String nodeId);
 
 }

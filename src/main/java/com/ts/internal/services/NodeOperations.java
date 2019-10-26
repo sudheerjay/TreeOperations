@@ -40,6 +40,9 @@ public class NodeOperations {
 		end[node1] = nodesVisited;
 	}
 
+	/*
+	 * This method returns all the descendants of any given node
+	 */
 	List<String> getAllDescendantsAndPersist(int nodeId) {
 		
 		List<String> descendants = new ArrayList<>();
