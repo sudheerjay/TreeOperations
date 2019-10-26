@@ -15,15 +15,14 @@ this application works with static data for now.
 
 
 This is the below sample tree for which this code is written for
-
 				  1
 				/   \
 			   /     \
 			  2       5
-			 /  \     / \
-			3	4    6   7
-				    / \
-				   8   9
+			 /  \    / \
+			3	4   6   7
+				   / \
+				  8   9
 
 Redis DB is used to persist all the info gathered from the above mentioned APIs.
 
