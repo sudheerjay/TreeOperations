@@ -22,8 +22,8 @@ public class RedisCacheManagerImpl implements RedisCacheManagerIF {
 	}
 
 	@Override
-	public void pushDescendent(String key, String projectId) {
-		redisUtils.pushValue(key, projectId);
+	public void pushDescendent(String key, String nodeId) {
+		redisUtils.pushValue(key, nodeId);
 	}
 
 	@Override

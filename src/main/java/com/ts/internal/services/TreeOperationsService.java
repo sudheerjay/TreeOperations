@@ -3,11 +3,14 @@ package com.ts.internal.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ts.internal.dto.Node;
 import com.ts.internal.redis.RedisServiceImpl;
+import com.ts.internal.resources.TreeOperationsResource;
 
 @Service
 public class TreeOperationsService {
@@ -17,14 +20,19 @@ public class TreeOperationsService {
 
 	@Autowired
 	private NodeOperations nodeOperations;
+	
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(TreeOperationsResource.class);
 
 	/*
 	 * This method goes through the entire tree from the given nodeId. it used DFS
 	 * to find the required descendants and stores them in the RedisDB.
 	 */
 	public List<String> getDescendantNodes(String id) {
+		LOGGER.info("Entring getDescendants from Service");		
 		List<String> descendants = nodeOperations.getAllDescendantsAndPersist(Integer.parseInt(id));
 		redisService.cacheDescendentNodes(id, descendants);
+		LOGGER.info("Exiting getDescendants from Service");
 		return descendants;
 	}
 
@@ -33,6 +41,7 @@ public class TreeOperationsService {
 	 * prints the entire tree and update the RedisDB with the changes
 	 */
 	public void changeParent(String id, String parentId) {
+		LOGGER.info("Entring changeParent from Service");	
 		Node node = redisService.getNodebyID("node_"+id);
 		Node parent = redisService.getNodebyID("node_"+parentId);	
 
@@ -51,11 +60,14 @@ public class TreeOperationsService {
 		List<String> descendantNodeList = new ArrayList<>();
 		descendantNodeList.add("node_"+id);
 		redisService.cacheDescendentNodes(parentId, descendantNodeList);
+
+		LOGGER.info("Exiting changeParent from Service");	
 		
 	}
 
 	void handleChildrenNodes(Node node,Node pastParent) {
-		
+
+		LOGGER.info("Entering handleChildrenNodes from Service");	
 		List<String> descendants = redisService.getDescendants("node_"+node.getId());
 		
 		for (String id : descendants) {
@@ -66,6 +78,8 @@ public class TreeOperationsService {
 			node1.setParent(pastParent);
 			node1.setHeight(pastParent.getHeight() + 1);
 			redisService.putNode(node1);
+			LOGGER.info("Exiting handleChildrenNodes from Service");	
+
 		}
 		
 	}

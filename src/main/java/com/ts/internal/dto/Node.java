@@ -45,30 +45,6 @@ public class Node {
 		this.root = root;
 	}
 
-//	public List<Node> getChildren() {
-//		return children;
-//	}
-//
-//	public void setChildren(List<Node> children) {
-//		this.children = children;
-//	}
-
-//	public Node getLeft() {
-//		return left;
-//	}
-//
-//	public void setLeft(Node left) {
-//		this.left = left;
-//	}
-//
-//	public Node getRight() {
-//		return right;
-//	}
-//
-//	public void setRight(Node right) {
-//		this.right = right;
-//	}
-
 	public int getHeight() {
 		return height;
 	}
