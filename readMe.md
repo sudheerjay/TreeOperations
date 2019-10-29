@@ -51,6 +51,7 @@ Available APIs:
 1) getDescendants of a given node: http://localhost:8090/tree/node/getDescendants?nodeId={id}
 2) changeParent of a given node: http://localhost:8090/tree/node/changeParent?nodeId={id}&parentId={id}
 
+UI can be access via http://localhost:8090/home
 
 NOTE: change parent API is dependent on the getDescendants API. this is because we need all the descendants to be rearranged after the node's parent is changed.
 
