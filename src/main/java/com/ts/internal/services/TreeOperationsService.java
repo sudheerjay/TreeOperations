@@ -30,7 +30,7 @@ public class TreeOperationsService {
 	public List<String> getDescendantNodes(String id) {
 		List<String> descendants = redisService.getDescendants("node_" + id);
 		LOGGER.info("Entring getDescendants from Service");
-		if (null != descendants) {
+		if (!descendants.isEmpty()) {
 			return descendants;
 		} else {
 			descendants = nodeOperations.getAllDescendantsAndPersist(Integer.parseInt(id));
