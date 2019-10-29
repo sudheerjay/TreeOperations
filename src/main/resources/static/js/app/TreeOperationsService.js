@@ -5,11 +5,8 @@ angular.module('treeoperations.services', []).factory('TreeOperationsService', [
         var url = CONSTANTS.getDescendantsUrl +'?nodeId='+ nodeId;
         return $http.get(url);
     }
-    service.getAllUsers = function() {
-        return $http.get(CONSTANTS.getAllUsers);
-    }
-    service.saveUser = function(userDto) {
-        return $http.post(CONSTANTS.saveUser, userDto);
+    service.changeParent = function(nodeId,parentId) {
+        return $http.put(CONSTANTS.changeParentUrl +'?nodeId='+nodeId+'&parentId='+parentId);
     }
     return service;
 }]);

@@ -8,21 +8,24 @@
 <hr/>
 <div class="container" ng-controller="TreeOperationsResource">
     <div class="row">
-       <!--  <label>Get Children</label> <input type="text" ng-model="userDto.userName" class="input-sm spacing"/> -->
         <label>Node ID: </label> <input type="number" ng-model="descendantId" class="input-sm custom-width spacing"/>
-        <button ng-click="getDescendants()" class="btn btn-sm btn-info">get descendants</button>
+        <button ng-click="getDescendants()" class="btn btn-sm btn-info">Get descendants</button>
     </div>
     <hr/>
     <div class="row">
-      <label>Descendants are: </label>  <p>{{allDescendants | json}}</p>
+     <p>Descendants are: {{allDescendants | json}}</p>
     </div>
     <hr/>
-    <div class="row" ng-repeat="user in allUsers">
-        <div class="">
-            <h3>{{node.nodeId}}</h3>
-            <span ng-repeat="skill in user.skillDtos" class="spacing">{{skill.skillName}}</span>
-        </div>
+    <div class="row">
+        <label>Node ID: </label> <input type="number" ng-model="nodeId" class="input-sm custom-width spacing"/>     
+        <label>Parent ID: </label> <input type="number" ng-model="parentId" class="input-sm custom-width spacing"/>
+        <button ng-click="changeParent()" class="btn btn-sm btn-info">Change parent</button>
     </div>
+    <hr/>
+    <div class="row">
+     <p>{{changeInParent | json}}</p>
+    </div>
+    <hr/>
 </div>
 </body>
 <script src="js/lib/angular.min.js"></script>
