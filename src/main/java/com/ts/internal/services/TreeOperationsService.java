@@ -60,17 +60,25 @@ public class TreeOperationsService {
 
 		// remove the descendant rule from the old parent
 		redisService.popDescendant("node_" + pastParent.getId() + "_descendants", "node_" + id);
-
-		// add the selected node and it's descendants as descendants for the newParent
-		List<String> descendantNodeList = handleChildrenNodes(node, pastParent);
+		
+		//remove children from current node and set them as edge node to past parent
+		handleChildrenNodes(node, pastParent);
+		
+		// add the selected node as a descendants for the newParent and its parent nodes
+		List<String> descendantNodeList = new ArrayList<>();
 		descendantNodeList.add("node_" + id);
 		redisService.cacheDescendentNodes(parentId, descendantNodeList);
+		
+		while(parent.getParent()!=null) {
+			redisService.cacheDescendentNodes(""+parent.getParent().getId(), descendantNodeList);
+			parent = parent.getParent();
+		}
 
 		LOGGER.info("Exiting changeParent from Service");
 
 	}
 
-	List<String> handleChildrenNodes(Node node, Node pastParent) {
+	void handleChildrenNodes(Node node, Node pastParent) {
 
 		LOGGER.info("Entering handleChildrenNodes from Service");
 		List<String> descendants = redisService.getDescendants("node_" + node.getId());
@@ -86,6 +94,5 @@ public class TreeOperationsService {
 			LOGGER.info("Exiting handleChildrenNodes from Service");
 
 		}
-		return descendants;
 	}
 }
