@@ -16,14 +16,14 @@ this application works with static data for now.
 
 This is the below sample tree for which this code is written for
 
-				  1
-				/   \
+			      1
+			    /   \
 			   /     \
 			  2       5
 			 /  \    / \
-			3	4   6   7
-				   / \
-				  8   9
+			3   4   6   7
+			       / \
+			      8   9
 
 Redis DB is used to persist all the info gathered from the above mentioned APIs.
 
@@ -34,7 +34,6 @@ node descendants information is stored under the key "node_{id}_descendants"
 
 1) you need to install gradle to run this application. once you have gradle setup,
    goto the cloned location and run 
-	-> "./gradle wrapper"
 	-> "./gradlew clean build".
 	-> once the application builds successfully, you can run it by using "./gradlew bootRun"
    	   this will start the application and you can call the APIs.
