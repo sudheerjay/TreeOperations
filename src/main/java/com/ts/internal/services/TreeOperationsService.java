@@ -22,6 +22,8 @@ public class TreeOperationsService {
 	private NodeOperations nodeOperations;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(TreeOperationsResource.class);
+	
+	private static List<String> firstTime = new ArrayList<>();
 
 	/*
 	 * This method goes through the entire tree from the given nodeId. it used DFS
@@ -30,11 +32,12 @@ public class TreeOperationsService {
 	public List<String> getDescendantNodes(String id) {
 		List<String> descendants = redisService.getDescendants("node_" + id);
 		LOGGER.info("Entring getDescendants from Service");
-		if (!descendants.isEmpty()) {
+		if (!descendants.isEmpty()) { //returns for already changed node(parents/descendants)
 			return descendants;
-		} else {
+		} else if(!firstTime.contains(id)) {
 			descendants = nodeOperations.getAllDescendantsAndPersist(Integer.parseInt(id));
 			redisService.cacheDescendentNodes(id, descendants);
+			firstTime.add(id);
 		}
 		LOGGER.info("Exiting getDescendants from Service");
 		return descendants;
@@ -55,13 +58,11 @@ public class TreeOperationsService {
 
 		redisService.putNode(node);
 
-		handleChildrenNodes(node, pastParent);
-
 		// remove the descendant rule from the old parent
 		redisService.popDescendant("node_" + pastParent.getId() + "_descendants", "node_" + id);
 
-		// add the selected node as a descendant for the newParent
-		List<String> descendantNodeList = new ArrayList<>();
+		// add the selected node and it's descendants as descendants for the newParent
+		List<String> descendantNodeList = handleChildrenNodes(node, pastParent);
 		descendantNodeList.add("node_" + id);
 		redisService.cacheDescendentNodes(parentId, descendantNodeList);
 
@@ -69,7 +70,7 @@ public class TreeOperationsService {
 
 	}
 
-	void handleChildrenNodes(Node node, Node pastParent) {
+	List<String> handleChildrenNodes(Node node, Node pastParent) {
 
 		LOGGER.info("Entering handleChildrenNodes from Service");
 		List<String> descendants = redisService.getDescendants("node_" + node.getId());
@@ -85,6 +86,6 @@ public class TreeOperationsService {
 			LOGGER.info("Exiting handleChildrenNodes from Service");
 
 		}
-
+		return descendants;
 	}
 }

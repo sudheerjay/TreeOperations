@@ -50,7 +50,7 @@ public class RedisCacheManagerImpl implements RedisCacheManagerIF {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		redisUtils.putValue("node_"+node.getId(), nodeData);
+		redisUtils.putValue("node_" + node.getId(), nodeData);
 	}
 
 	@Override
@@ -58,9 +58,9 @@ public class RedisCacheManagerImpl implements RedisCacheManagerIF {
 		// TODO Auto-generated method stub
 		return redisUtils.getValues(id);
 	}
-	
-    @Override
-    public void popDescendant(String key, String nodeId) {
-    	redisUtils.popValue(key, nodeId);
-    }
+
+	@Override
+	public void popDescendant(String key, String nodeId) {
+		redisUtils.popValue(key, nodeId);
+	}
 }
